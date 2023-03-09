@@ -104,6 +104,27 @@ int branches_testcode(void) {
 
 	return 0;
 
+#elif defined(__riscv) && __riscv_xlen == 64
+	asm(	"\txor a3,a3,a3\n"
+		"\tli a3,500000\n"
+		"\tli a4,1\n"
+		"test_loop:\n"
+		"\tj test_jmp\n"
+		"\tnop\n"
+		"test_jmp:\n"
+		"\txor a2,a2,a2\n"
+		"\tbge a2,a4,test_jmp2\n"
+		"\tnop\n"
+		"\tadd a2,a2,a4\n"
+		"test_jmp2:\n"
+		"\tsub a3,a3,a4\n"
+		"\tbgt a3,a4,test_loop\n"
+		: /* no output registers */
+		: /* no inputs		 */
+		: "cc", "a2", "a3", "a4" /* clobbered */
+	);
+
+	return 0;
 #endif
 
 	return -1;

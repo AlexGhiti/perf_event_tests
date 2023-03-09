@@ -23,6 +23,7 @@ int detect_architecture(void);
 #define ARCH_POWER      3
 #define ARCH_ARM        4
 #define ARCH_ARM64      5
+#define ARCH_RISCV64    6
 
 #define VENDOR_UNKNOWN -1
 #define VENDOR_INTEL    1

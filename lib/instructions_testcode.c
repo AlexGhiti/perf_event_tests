@@ -90,6 +90,17 @@ int instructions_million(void) {
 		: "cc", "3" /* clobbered */
 	);
 	return ALL_OK;
+#elif defined(__riscv) && __riscv_xlen == 64
+	asm(	"	li	a2,499999\n"
+		"	xor	a3,a3,a3\n"
+		"test_loop:\n"
+		"	addi	a2,a2,-1\n"
+		"	bgt	a2,a3,test_loop\n"
+		: /* no output registers */
+		: /* no inputs */
+		: "cc", "a2", "a3" /* clobbered */
+	);
+	return 0;
 #endif
 
 	return CODE_UNIMPLEMENTED;

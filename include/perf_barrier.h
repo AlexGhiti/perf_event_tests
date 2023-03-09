@@ -61,6 +61,13 @@
 #define rmb() asm volatile("lfence":::"memory")
 #endif
 
+#elif defined(__riscv) && __riscv_xlen == 64
+
+#define RISCV_FENCE(p, s) \
+        __asm__ __volatile__ ("fence " #p "," #s : : : "memory")
+
+#define rmb()	RISCV_FENCE(ir,ir)
+
 #else
 #error Need to define rmb for this architecture!
 #error See the kernel source directory: tools/perf/perf.h file

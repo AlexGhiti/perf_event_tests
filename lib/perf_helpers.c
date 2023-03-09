@@ -753,6 +753,8 @@ int detect_architecture(void) {
 	return ARCH_ARM;
 #elif defined __aarch64__
 	return ARCH_ARM64;
+#elif defined(__riscv) && __riscv_xlen == 64
+	return ARCH_RISCV64;
 #else
 	return ARCH_UNKNOWN;
 #endif

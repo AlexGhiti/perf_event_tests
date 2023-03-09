@@ -50,6 +50,10 @@
 #include "arch-parisc.h"
 #endif
 
+#if defined(__riscv) && __riscv_xlen == 64
+#include "arch-riscv64.h"
+#endif
+
 #ifndef SYSCALL_OFFSET
 #define SYSCALL_OFFSET 0
 #endif
